@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
-import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import {
   ConnectWallet,
   ConnectWalletText,
