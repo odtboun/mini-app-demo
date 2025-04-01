@@ -19,7 +19,7 @@ interface FarcasterUser {
   fid: number;
   username?: string;
   displayName?: string;
-  pfp?: string;
+  pfpUrl?: string;
   bio?: string;
   location?: {
     placeId: string;
@@ -36,9 +36,21 @@ export function TodoList() {
   useEffect(() => {
     // Get user info from Farcaster Mini App SDK
     const getUserInfo = async () => {
-      const context = await sdk.context;
-      if (context.user) {
-        setFcUser(context.user);
+      try {
+        const context = await sdk.context;
+        console.log("Full Farcaster context:", context);
+        if (context?.user) {
+          console.log("Farcaster user data:", context.user);
+          // Log all properties of the user object
+          Object.keys(context.user as Record<string, unknown>).forEach(key => {
+            console.log(`${key}:`, (context.user as Record<string, unknown>)[key]);
+          });
+          setFcUser(context.user);
+        } else {
+          console.log("No Farcaster user data available");
+        }
+      } catch (error) {
+        console.error("Error getting Farcaster user data:", error);
       }
     };
     getUserInfo();
@@ -78,9 +90,9 @@ export function TodoList() {
           {address ? (
             <div className="flex items-center space-x-2 bg-[var(--card-bg)] p-2 rounded-lg border border-[var(--border-color)]">
               <div className="w-10 h-10 rounded-full overflow-hidden">
-                {fcUser?.pfp ? (
+                {fcUser?.pfpUrl ? (
                   <Image 
-                    src={fcUser.pfp} 
+                    src={fcUser.pfpUrl} 
                     alt={fcUser.username || "User"}
                     width={40}
                     height={40}
