@@ -15,6 +15,7 @@ import {
   Identity,
   Avatar,
 } from "@coinbase/onchainkit/identity";
+import Image from 'next/image';
 
 interface Todo {
   id: number;
@@ -60,23 +61,11 @@ export function TodoList() {
             <Wallet>
               <WalletDropdown>
                 <div className="flex items-center space-x-2">
-                  {context?.client?.user?.fid ? (
-                    <img 
-                      src={`https://warpcast.com/~/avatar/${context.client.user.fid}`} 
-                      alt="Profile" 
-                      className="w-8 h-8 rounded-full"
-                    />
-                  ) : (
-                    <Avatar address={address} />
-                  )}
+                  <Avatar address={address} />
                   <div className="flex flex-col">
-                    {context?.client?.user?.username ? (
-                      <span className="text-white">@{context.client.user.username}</span>
-                    ) : (
-                      <Identity address={address}>
-                        <Name className="text-white" />
-                      </Identity>
-                    )}
+                    <Identity address={address}>
+                      <Name className="text-white" />
+                    </Identity>
                   </div>
                 </div>
                 <WalletDropdownDisconnect />
