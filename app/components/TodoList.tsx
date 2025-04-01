@@ -26,6 +26,8 @@ export function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
 
+  console.log("Current address:", address);
+
   const addTodo = (e: React.FormEvent) => {
     e.preventDefault();
     if (newTodo.trim()) {
@@ -58,7 +60,7 @@ export function TodoList() {
             <Wallet>
               <WalletDropdown>
                 <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10">
+                  <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
                     <Avatar 
                       address={address} 
                       className="w-full h-full rounded-full"
