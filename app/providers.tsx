@@ -11,8 +11,8 @@ export function Providers(props: { children: ReactNode }) {
       chain={base}
       config={{
         appearance: {
-          mode: "auto",
-          theme: "snake",
+          mode: "dark",
+          theme: "default",
           name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
           logo: process.env.NEXT_PUBLIC_ICON_URL,
         },
