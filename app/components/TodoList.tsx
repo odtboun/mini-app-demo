@@ -15,7 +15,6 @@ import {
   Identity,
   Avatar,
 } from "@coinbase/onchainkit/identity";
-import Image from 'next/image';
 
 interface Todo {
   id: number;
@@ -25,7 +24,6 @@ interface Todo {
 
 export function TodoList() {
   const { address } = useAccount();
-  const { context } = useMiniKit();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
 
