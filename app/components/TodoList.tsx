@@ -6,7 +6,7 @@ import {
   ConnectWallet,
   ConnectWalletText,
 } from "@coinbase/onchainkit/wallet";
-import { Avatar } from "@coinbase/onchainkit/identity";
+import { Avatar, Identity, Name } from "@coinbase/onchainkit/identity";
 
 interface Todo {
   id: number;
@@ -60,10 +60,15 @@ export function TodoList() {
                       {address.slice(0, 2).toUpperCase()}
                     </div>
                   }
+                  loadingComponent={
+                    <div className="w-full h-full bg-gray-600 animate-pulse" />
+                  }
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-medium">Connected</span>
+                <Identity address={address}>
+                  <Name className="text-white font-medium" />
+                </Identity>
                 <span className="text-xs text-gray-400">{address.slice(0, 6)}...{address.slice(-4)}</span>
               </div>
             </div>
