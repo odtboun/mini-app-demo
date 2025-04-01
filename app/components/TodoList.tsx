@@ -56,22 +56,15 @@ export function TodoList() {
         <h1 className="text-2xl font-bold text-white">Todo List</h1>
         <div className="flex items-center space-x-2">
           {address ? (
-            <Wallet>
-              <WalletDropdown>
-                <div className="flex items-center space-x-2 bg-[var(--card-bg)] p-2 rounded-lg border border-[var(--border-color)]">
-                  <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                    {address.slice(0, 2).toUpperCase()}
-                  </div>
-                  <div className="flex flex-col">
-                    <Identity address={address}>
-                      <Name className="text-white font-medium" />
-                    </Identity>
-                    <span className="text-xs text-gray-400">{address.slice(0, 6)}...{address.slice(-4)}</span>
-                  </div>
-                </div>
-                <WalletDropdownDisconnect />
-              </WalletDropdown>
-            </Wallet>
+            <div className="flex items-center space-x-2 bg-[var(--card-bg)] p-2 rounded-lg border border-[var(--border-color)]">
+              <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                {address.slice(0, 2).toUpperCase()}
+              </div>
+              <div className="flex flex-col">
+                <span className="text-white font-medium">Connected</span>
+                <span className="text-xs text-gray-400">{address.slice(0, 6)}...{address.slice(-4)}</span>
+              </div>
+            </div>
           ) : (
             <ConnectWallet>
               <ConnectWalletText className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium">
