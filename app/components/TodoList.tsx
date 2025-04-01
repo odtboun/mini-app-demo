@@ -15,11 +15,23 @@ interface Todo {
   completed: boolean;
 }
 
+interface FarcasterUser {
+  fid: number;
+  username?: string;
+  displayName?: string;
+  pfp?: string;
+  bio?: string;
+  location?: {
+    placeId: string;
+    description: string;
+  };
+}
+
 export function TodoList() {
   const { address } = useAccount();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
-  const [fcUser, setFcUser] = useState<any>(null);
+  const [fcUser, setFcUser] = useState<FarcasterUser | null>(null);
 
   useEffect(() => {
     // Get user info from Farcaster Mini App SDK
