@@ -12,7 +12,6 @@ import {
 import {
   Name,
   Identity,
-  Address,
   Avatar,
 } from "@coinbase/onchainkit/identity";
 
