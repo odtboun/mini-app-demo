@@ -1,12 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
 import {
   ConnectWallet,
   ConnectWalletText,
 } from "@coinbase/onchainkit/wallet";
 import { Avatar, Identity, Name } from "@coinbase/onchainkit/identity";
+
+interface FarcasterUser {
+  fid: number;
+  username: string;
+  displayName: string;
+  pfp: {
+    url: string;
+  };
+}
 
 interface Todo {
   id: number;
@@ -18,8 +27,20 @@ export function TodoList() {
   const { address } = useAccount();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
+  const [fcUser, setFcUser] = useState<FarcasterUser | null>(null);
+
+  useEffect(() => {
+    // Check if we're in a Farcaster Mini App environment
+    if (typeof window !== 'undefined' && (window as any).farcaster) {
+      const farcaster = (window as any).farcaster;
+      if (farcaster.user) {
+        setFcUser(farcaster.user);
+      }
+    }
+  }, []);
 
   console.log("Current address:", address);
+  console.log("Farcaster user:", fcUser);
 
   const addTodo = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,23 +73,22 @@ export function TodoList() {
           {address ? (
             <div className="flex items-center space-x-2 bg-[var(--card-bg)] p-2 rounded-lg border border-[var(--border-color)]">
               <div className="w-10 h-10 rounded-full overflow-hidden">
-                <Avatar 
-                  address={address}
-                  className="w-full h-full"
-                  defaultComponent={
-                    <div className="w-full h-full bg-blue-500 flex items-center justify-center text-white text-sm font-bold">
-                      {address.slice(0, 2).toUpperCase()}
-                    </div>
-                  }
-                  loadingComponent={
-                    <div className="w-full h-full bg-gray-600 animate-pulse" />
-                  }
-                />
+                {fcUser?.pfp?.url ? (
+                  <img 
+                    src={fcUser.pfp.url} 
+                    alt={fcUser.username}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-blue-500 flex items-center justify-center text-white text-sm font-bold">
+                    {address.slice(0, 2).toUpperCase()}
+                  </div>
+                )}
               </div>
               <div className="flex flex-col">
-                <Identity address={address}>
-                  <Name className="text-white font-medium" />
-                </Identity>
+                <span className="text-white font-medium">
+                  {fcUser?.displayName || fcUser?.username || "Connected"}
+                </span>
                 <span className="text-xs text-gray-400">{address.slice(0, 6)}...{address.slice(-4)}</span>
               </div>
             </div>
