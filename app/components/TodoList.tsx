@@ -6,7 +6,7 @@ import {
   ConnectWallet,
   ConnectWalletText,
 } from "@coinbase/onchainkit/wallet";
-import { Avatar, Identity, Name } from "@coinbase/onchainkit/identity";
+import Image from "next/image";
 
 interface FarcasterUser {
   fid: number;
@@ -14,6 +14,12 @@ interface FarcasterUser {
   displayName: string;
   pfp: {
     url: string;
+  };
+}
+
+interface FarcasterWindow extends Window {
+  farcaster?: {
+    user: FarcasterUser;
   };
 }
 
@@ -31,9 +37,9 @@ export function TodoList() {
 
   useEffect(() => {
     // Check if we're in a Farcaster Mini App environment
-    if (typeof window !== 'undefined' && (window as any).farcaster) {
-      const farcaster = (window as any).farcaster;
-      if (farcaster.user) {
+    if (typeof window !== 'undefined') {
+      const farcaster = (window as FarcasterWindow).farcaster;
+      if (farcaster?.user) {
         setFcUser(farcaster.user);
       }
     }
@@ -74,10 +80,12 @@ export function TodoList() {
             <div className="flex items-center space-x-2 bg-[var(--card-bg)] p-2 rounded-lg border border-[var(--border-color)]">
               <div className="w-10 h-10 rounded-full overflow-hidden">
                 {fcUser?.pfp?.url ? (
-                  <img 
+                  <Image 
                     src={fcUser.pfp.url} 
                     alt={fcUser.username}
-                    className="w-full h-full object-cover"
+                    width={40}
+                    height={40}
+                    className="object-cover"
                   />
                 ) : (
                   <div className="w-full h-full bg-blue-500 flex items-center justify-center text-white text-sm font-bold">
