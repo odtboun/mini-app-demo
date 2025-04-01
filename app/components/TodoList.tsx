@@ -6,6 +6,7 @@ import {
   ConnectWallet,
   ConnectWalletText,
 } from "@coinbase/onchainkit/wallet";
+import { Avatar } from "@coinbase/onchainkit/identity";
 
 interface Todo {
   id: number;
@@ -50,8 +51,16 @@ export function TodoList() {
         <div className="flex items-center space-x-2">
           {address ? (
             <div className="flex items-center space-x-2 bg-[var(--card-bg)] p-2 rounded-lg border border-[var(--border-color)]">
-              <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                {address.slice(0, 2).toUpperCase()}
+              <div className="w-10 h-10 rounded-full overflow-hidden">
+                <Avatar 
+                  address={address}
+                  className="w-full h-full"
+                  defaultComponent={
+                    <div className="w-full h-full bg-blue-500 flex items-center justify-center text-white text-sm font-bold">
+                      {address.slice(0, 2).toUpperCase()}
+                    </div>
+                  }
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-white font-medium">Connected</span>
