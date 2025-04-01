@@ -12,7 +12,6 @@ import {
 import {
   Name,
   Identity,
-  Avatar,
 } from "@coinbase/onchainkit/identity";
 
 interface Todo {
