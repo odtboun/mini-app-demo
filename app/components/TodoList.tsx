@@ -60,16 +60,8 @@ export function TodoList() {
             <Wallet>
               <WalletDropdown>
                 <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center overflow-hidden">
-                    <Avatar 
-                      address={address} 
-                      className="w-full h-full"
-                      defaultComponent={
-                        <div className="w-full h-full bg-gray-600 flex items-center justify-center text-white text-sm font-medium">
-                          {address.slice(0, 2).toUpperCase()}
-                        </div>
-                      }
-                    />
+                  <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                    {address.slice(0, 2).toUpperCase()}
                   </div>
                   <div className="flex flex-col">
                     <Identity address={address}>
