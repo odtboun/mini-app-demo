@@ -5,14 +5,7 @@ import { useAccount } from "wagmi";
 import {
   ConnectWallet,
   ConnectWalletText,
-  Wallet,
-  WalletDropdown,
-  WalletDropdownDisconnect,
 } from "@coinbase/onchainkit/wallet";
-import {
-  Name,
-  Identity,
-} from "@coinbase/onchainkit/identity";
 
 interface Todo {
   id: number;
